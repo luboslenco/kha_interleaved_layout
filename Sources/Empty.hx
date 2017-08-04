@@ -103,13 +103,14 @@ class Empty {
 
 	public function new() {
 		// Pipeline
-		var structure = new VertexStructure();
-        structure.add("pos", VertexData.Float3);
-        structure.add("col", VertexData.Float3);
-
+		var structure1 = new VertexStructure();
+        structure1.add("pos", VertexData.Float3);
+		var structure2 = new VertexStructure();
+        structure2.add("col", VertexData.Float3);
+		
 		pipeline = new PipelineState();
-		pipeline.interleavedLayout = false; ////
-		pipeline.inputLayout = [structure];
+		pipeline.interleavedLayout = true; ////
+		pipeline.inputLayout = [structure1, structure2];
 		pipeline.fragmentShader = Shaders.simple_frag;
 		pipeline.vertexShader = Shaders.simple_vert;
         pipeline.depthWrite = true;
@@ -126,10 +127,8 @@ class Empty {
 		mvp = mvp.multmat(model);
 
 		// Vertex buffers
-		structure = new VertexStructure();
-        structure.add("pos", VertexData.Float3);
 		var vertexBuffer = new VertexBuffer(
-			Std.int(vertices.length / 3), structure, Usage.StaticUsage
+			Std.int(vertices.length / 3), structure1, Usage.StaticUsage
 		);
 		
 		var vbData = vertexBuffer.lock();
@@ -139,11 +138,8 @@ class Empty {
 		vertexBuffer.unlock();
 		vertexBuffers.push(vertexBuffer);
 
-
-		structure = new VertexStructure();
-        structure.add("col", VertexData.Float3);
 		var vertexBuffer = new VertexBuffer(
-			Std.int(vertices.length / 3), structure, Usage.StaticUsage
+			Std.int(vertices.length / 3), structure2, Usage.StaticUsage
 		);
 		
 		vbData = vertexBuffer.lock();
