@@ -109,7 +109,6 @@ class Empty {
         structure2.add("col", VertexData.Float3);
 		
 		pipeline = new PipelineState();
-		pipeline.interleavedLayout = true; ////
 		pipeline.inputLayout = [structure1, structure2];
 		pipeline.fragmentShader = Shaders.simple_frag;
 		pipeline.vertexShader = Shaders.simple_vert;
